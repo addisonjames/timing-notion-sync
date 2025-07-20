@@ -171,14 +171,14 @@ python3 timing-notion-sync.py
 
 ```
 timing-notion-sync/
-├── timing-notion-sync.py    # Main sync script
+├── timing-notion-sync.py         # Main sync script
 ├── com.timing-notion-sync.plist  # launchd configuration
-├── install.sh              # Installation script
-├── uninstall.sh           # Uninstall script
-├── .env.example           # Template for API tokens
-├── .gitignore            # Excludes sensitive files
-├── logs/                 # Error logs (auto-created)
-└── README.md            # This file
+├── install.sh                    # Installation script
+├── uninstall.sh                  # Uninstall script
+├── .env.example                  # Template for API tokens
+├── .gitignore                    # Excludes sensitive files
+├── logs/                         # Error logs (auto-created)
+└── README.md                     # This file
 ```
 
 ## 🤝 Contributing
