@@ -214,7 +214,3 @@ launchctl load ~/Library/LaunchAgents/com.timing-notion-sync.plist
 ```
 
 **Note:** The launchd service uses system Python, not your venv. To test with your venv, run manually.
-
-## 📄 License
-
-MIT License - feel free to use and modify as needed.
