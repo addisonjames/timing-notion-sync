@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+.DS_Store
+logs/
+*.log
+com.timing-notion-sync.plist
+promps/
