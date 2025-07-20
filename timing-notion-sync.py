@@ -85,7 +85,7 @@ def handle_error(error_message, error_details=None):
 if not TIMING_API_TOKEN or not NOTION_API_TOKEN or not NOTION_DATABASE_ID:
     error_msg = "Please set TIMING_API_TOKEN, NOTION_API_TOKEN, and NOTION_DATABASE_ID environment variables"
     handle_error(error_msg)
-    sys.exit(1)
+    # Let script complete normally instead of exiting with error
 
 def seconds_to_duration_string(seconds):
     """Convert seconds to H:MM:SS format"""
@@ -103,7 +103,7 @@ def get_project_names():
     }
     
     try:
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers, timeout=30)
         response.raise_for_status()
         data = response.json()
         
@@ -146,7 +146,7 @@ def get_timing_data():
     }
     
     try:
-        response = requests.get(url, headers=headers, params=params)
+        response = requests.get(url, headers=headers, params=params, timeout=30)
         response.raise_for_status()
         data = response.json()
         print(f"API returned {len(data.get('data', []))} entries for {today}")
@@ -178,7 +178,7 @@ def find_notion_page(date, project):
     }
     
     try:
-        response = requests.post(url, headers=headers, json=data)
+        response = requests.post(url, headers=headers, json=data, timeout=30)
         response.raise_for_status()
         results = response.json()['results']
         return results[0]['id'] if results else None
@@ -223,7 +223,7 @@ def update_or_create_notion_page(page_id, date, duration_seconds, project):
         method = 'POST'
     
     try:
-        response = requests.request(method, url, headers=headers, json=data)
+        response = requests.request(method, url, headers=headers, json=data, timeout=30)
         response.raise_for_status()
         return True
     except requests.exceptions.RequestException as e:
@@ -338,7 +338,7 @@ def main():
     except Exception as e:
         error_msg = f"Sync failed: {str(e)}"
         handle_error(error_msg, traceback.format_exc())
-        sys.exit(1)
+        # Let script complete normally instead of exiting with error
 
 if __name__ == "__main__":
     main()
