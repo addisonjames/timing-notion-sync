@@ -68,7 +68,7 @@ def log_error(error_message):
     except Exception as e:
         print(f"Failed to log error: {e}")
 
-def handle_error(error_message, error_details=None):
+def handle_error(error_message, error_details=None, critical=False):
     """Handle errors with notifications, file creation, and logging"""
     print(f"ERROR: {error_message}")
     if error_details:
@@ -77,14 +77,15 @@ def handle_error(error_message, error_details=None):
     # Log the error
     log_error(error_message)
     
-    # Create desktop error file
-    full_details = f"{error_message}\n\n{error_details if error_details else 'No additional details'}\n\n{traceback.format_exc()}"
-    create_error_file(full_details)
+    # Only create desktop error file for critical errors
+    if critical:
+        full_details = f"{error_message}\n\n{error_details if error_details else 'No additional details'}\n\n{traceback.format_exc()}"
+        create_error_file(full_details)
 
 # Validate tokens exist
 if not TIMING_API_TOKEN or not NOTION_API_TOKEN or not NOTION_DATABASE_ID:
     error_msg = "Please set TIMING_API_TOKEN, NOTION_API_TOKEN, and NOTION_DATABASE_ID environment variables"
-    handle_error(error_msg)
+    handle_error(error_msg, critical=True)
     # Let script complete normally instead of exiting with error
 
 def seconds_to_duration_string(seconds):
